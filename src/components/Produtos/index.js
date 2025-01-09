@@ -10,7 +10,7 @@ export default function Produtos({data}){
       <Text style={styles.valor}>R$ {data.valor}</Text>
       </View>
 
-      <TouchableOpacity style={styles.btnAdd}>
+      <TouchableOpacity style={styles.btnAdd} onPress={addToCar}>
         <Text style={styles.btnText}>+</Text>
       </TouchableOpacity>
 

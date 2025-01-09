@@ -13,7 +13,7 @@ export default function Home() {
   const navigation = useNavigation();
 
   //ele retorna o valor compartilhado pelo CartProvider. (cart)
- const { cart } = useContext(CartContext); 
+ const { cart, AddItemCarinho } = useContext(CartContext); 
 
   //Array de objetos da flatlist
   const [produto, setProduto] = useState([
@@ -54,6 +54,10 @@ export default function Home() {
     },
   ]);
 
+  function handleAddCart(item){
+    AddItemCarinho(item);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cartContent}>
@@ -78,7 +82,7 @@ export default function Home() {
       style={styles.list}
       data={produto}
       keyExtractor={ (item) => String(item.id) }
-      renderItem={({item}) => <Produtos data={item} />}
+      renderItem={({item}) => <Produtos data={item} addToCart={ () => handleAddCart(item)} />}
       
       />
 
