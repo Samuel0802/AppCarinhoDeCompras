@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from 'react-native-vector-icons/Feather';
 import Produtos from "../../components/Produtos";
 import { useNavigation } from "@react-navigation/native";
+import  {CartContext } from '../../contexts/CartContext'; //Consumindo o Content
 
 
 export default function Home() {
-
+ 
+  //Navegação Stack
   const navigation = useNavigation();
 
+  //ele retorna o valor compartilhado pelo CartProvider. (cart)
+ const { cart } = useContext(CartContext); 
+
+  //Array de objetos da flatlist
   const [produto, setProduto] = useState([
     {
       id: '1',
@@ -53,10 +59,14 @@ export default function Home() {
       <View style={styles.cartContent}>
         <Text style={styles.title}>Lista de Produtos</Text>
 
+     {/*  TouchableOpacity: qunado clica no carrinho é direcionado para outra pagina de listagem */}
         <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Cart')}>
           
           <View style={styles.dot}>
-            <Text style={styles.dotText}>4</Text>
+            <Text style={styles.dotText}>
+              {cart?.length}
+              {/* cart?. = Caso o valor for vazio ele retorna pra 0 */}
+              </Text>
           </View>
           <Feather name="shopping-cart" size={30} color="#000" />
         </TouchableOpacity>
