@@ -66,12 +66,17 @@ export default function Home() {
      {/*  TouchableOpacity: qunado clica no carrinho é direcionado para outra pagina de listagem */}
         <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Cart')}>
           
-          <View style={styles.dot}>
-            <Text style={styles.dotText}>
-              {cart?.length}
-              {/* cart?. = Caso o valor for vazio ele retorna pra 0 */}
-              </Text>
-          </View>
+          {/* Condição se for =1 aparecer o quantidade no carrinho */}
+         {cart.length >= 1 && (
+           <View style={styles.dot}>
+           <Text style={styles.dotText}>
+             {cart?.length}
+             {/* cart?. = Caso o valor for vazio ele retorna pra 0 */}
+             </Text>
+         </View>
+         )}
+
+
           <Feather name="shopping-cart" size={30} color="#000" />
         </TouchableOpacity>
 

@@ -6,6 +6,7 @@ export const CartContext = createContext({});// Context recebendo um valor vazio
 function CartProvider({ children }){//repassar os componentes que tiver dentro dele
 
 const [cart, setCart] = useState([]); //carinho vai receber um valor vazio
+const [total, setTotal] = useState(0);
 
 //Função para adicionar algo no carrinho de compra +
 function AddItemCarinho(NewItem){
@@ -23,7 +24,7 @@ function AddItemCarinho(NewItem){
    cartList[indexItem].total = cartList[indexItem].quantidade * cartList[indexItem].valor;
 
    setCart(cartList);
-   console.log(cartList);
+   TotalItem(cartList);
    return;
 
   }
@@ -34,7 +35,7 @@ function AddItemCarinho(NewItem){
   }
 
   setCart(Produtos => [...Produtos, data])//Passar para useState que tem item do carrinho
-
+  setTotal(prevTotal => prevTotal + data.valor); // Atualizar o total
 }
 
 //função de remover algo do carrinho
@@ -47,22 +48,36 @@ function RemoveItemCard(Produto){
    cartList[indexItem].quantidade = cartList[indexItem].quantidade - 1;
    // Pegando o valor total  - preço do produto
    cartList[indexItem].total = cartList[indexItem].total - cartList[indexItem].valor;
-
+   
+  
    setCart(cartList);
+   TotalItem(cartList);
+   
    return;
  }
 
   //filter: Retornar todos os item da lista menos o que clicou
  const removerProduto = cart.filter(item => item.id !== Produto.id);
+ TotalItem(removerProduto); //recalcular o valor total
  setCart(removerProduto);
 }
+
+//função realizando a soma dos item carrinho
+function TotalItem(items){
+  let myCard = items;
+  
+  let result = myCard.reduce((acc, abj) => {return acc + abj.total}, 0 )
+  setTotal(result.toFixed(2));
+}
+
+
 
 return(
    //contexts: ele que tem funcionalidade de adicionar algo no carrinho, remover, listagem dos carrinhos
 
     //Provider: Compartilha o valor do contexto para todos os componentes filhos.
  <CartContext.Provider
-  value={{ cart, AddItemCarinho, RemoveItemCard }} //Propriedade que vou exportar
+  value={{ cart, AddItemCarinho, RemoveItemCard, total }} //Propriedade que vou exportar
  >
 
     {children}
