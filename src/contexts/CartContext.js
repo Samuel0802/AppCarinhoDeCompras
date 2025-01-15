@@ -15,6 +15,16 @@ function AddItemCarinho(NewItem){
   if( indexItem !== -1){
    //Caso ele existar
    //se entrou aqui quer dizer que temos que adicionar +1 quantidade por que ele ja esta na sua lista
+   let cartList = cart;
+   
+   cartList[indexItem].quantidade = cartList[indexItem].quantidade + 1;
+
+   //quantidade x valor total
+   cartList[indexItem].total = cartList[indexItem].quantidade * cartList[indexItem].valor;
+
+   setCart(cartList);
+   console.log(cartList);
+   return;
 
   }
 
