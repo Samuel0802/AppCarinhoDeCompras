@@ -13,3 +13,12 @@
  - npm install react-native-vector-icons
 
 - https://github.com/oblador/react-native-vector-icons/tree/10.x
+
+
+### Prototipo
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
